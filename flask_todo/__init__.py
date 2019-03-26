@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, make_response
+from flask import Flask, request, abort, make_response, render_template, request, session
 
 
 
@@ -14,20 +14,19 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    @app.route('/')
+
+
+
+    @app.route('/', methods=["GET", "POST", "DELETE", "PATCH", "PUT"])
     def index():
+        readItems = open("todos.txt", 'r')
+        message = readItems.read()
+        print(message.split('||'))
+        readItems.close()
 
-        print('-' * 20)
-        print(f"Base URL: {request.base_url}")
-        print('-' * 20)
-
-        print('-' * 20)
-        print(f"URL Root: {request.url_root}")
-        print('-' * 20)
-
-        return 'This is a flask-boilerplate project, not to be used in production.'
-
-    @app.route('/hello')
+        return render_template('base.html')
+        
+    @app.route('/update')
     def hello():
 
         for key, value in request.args.items():
@@ -35,24 +34,6 @@ def create_app(test_config=None):
 
         name = request.args.get('name', 'World')
         return f"Hello {name}!"
-
-
-    @app.route('/number/<int:num>')
-    def number_route(num):
-        return f"Number: {num}"
-
-    @app.route('/method', methods=['GET', 'POST', 'DELETE', 'PATCH', 'PUT'])
-    def method_route():
-        return f"HTTP Method: {request.method}"
-
-    @app.route('/status')
-    def status_route():
-        code = request.args.get('c', 200)
-        if code == 200:
-            return f"{code} OKAY"
-        else:
-            response = make_response("", code)
-        return response
 
 
     return app
