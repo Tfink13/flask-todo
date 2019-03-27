@@ -1,8 +1,7 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - Finks ToDo Manager</title>
 <link rel="stylesheet" href="../static/style.css">
-<h1>TODO Manager</h1>
-
+{% block header %}{% endblock %}
 <form action="/" method="POST">
   First name:<br>
   <input type="text" name="firstname" value="">
