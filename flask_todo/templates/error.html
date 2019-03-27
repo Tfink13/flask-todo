@@ -1,0 +1,45 @@
+<!-- {% extends 'base.html' %}
+<!doctype html>
+<title>My Application</title>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %} -->
+
+
+<!--
+<!doctype html>
+<title>{% block title %}Finks ToDo Manager{% endblock %}</title>
+<link rel="stylesheet" href="../static/style.css">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block content %}
+<h1>TODO Manager</h1>
+<form action="/" method="POST">
+  First name:<br>
+  <input type="text" name="firstname" value="">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="">
+  <br>
+  Enter Task:<br>
+  <input type="text" name="todo" value="Enter Task:">
+  <br>
+  <br>
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %} -->

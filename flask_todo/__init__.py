@@ -20,17 +20,19 @@ def create_app(test_config=None):
     @app.route('/', methods=["GET", "POST"])
     def index():
         if request.method == 'POST':
+
+            # this is where i want to connect to the database
             firstname = request.form['firstname']
             lastname = request.form['lastname']
             todo = request.form['todo']
             error = None
-            if firstname == None:
+            if not firstname:
                 error = 'You must enter a first name'
             elif not lastname:
                 error = 'You must enter a last name.'
             elif todo == 'Enter task:' or not todo:
                 error = 'You must enter a task for your task manager.'
-            if error is None:
+            else:
                 readItems = open("todos.txt", 'a')
                 readItems.write(firstname + " " + lastname + ": " + todo + '\n')
                 readItems.close()
@@ -38,6 +40,21 @@ def create_app(test_config=None):
             flash(error)
 
         return render_template('base.html')
+
+
+        # def index():
+        #     error = None
+        #     if request.method == 'POST':
+        #         if request.form['firstname'] == None or request.form['lastname'] == None:
+        #                 error = 'You did not properly fill out the todo manager'
+        #         else:
+        #             readItems = open("todos.txt", 'a')
+        #             readItems.write(firstname + " " + lastname + ": " + todo + '\n')
+        #             readItems.close()
+        #             flash('Your task has been added to the ')
+        #             return redirect(url_for('/'))
+        #     return render_template('base.html', error=error)
+
 
     @app.route('/list')
     def list():
@@ -56,6 +73,12 @@ def create_app(test_config=None):
 
         # name = request.args.get('name', 'World')
         # return f"Hello {name}!"
+
+    @app.route('/create')
+    def create():
+        pass
+        # this is where i want to do something to
+        # do somehting to my list
 
 
 
