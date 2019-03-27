@@ -1,11 +1,46 @@
 html {
+  background: #eee;
+  font-family: sans-serif;
+  padding: 1rem;
+}
+
+body {
   background: beige;
+  border: 2pt solid black;
+  border-top: 0px;
+  border-radius: 15px;
+  height: 500px;
+  margin: 0 auto;
+  max-width: 75%;
 }
 
 h1 {
+  background: lightblue;
+  border-top-right-radius: 15px;
+  border-top: 2pt solid black;
+  border-bottom-style: solid;
+  border-top-left-radius: 15px;
+  color: #377ba8;
+  font-family: serif;
   text-align: center;
+  margin: 1rem 0;
+}
+
+h2 {
+  background: lightblue;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  color: #377ba8;
+  font-family: serif;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+a {
+  color: #377ba8;
 }
 
 form {
+  margin-top: 35px;
   text-align: center;
 }

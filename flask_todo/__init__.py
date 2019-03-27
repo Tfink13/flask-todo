@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, make_response, render_template, request, session
+from flask import Flask, request, render_template, request, flash
 
 
 
@@ -17,23 +17,46 @@ def create_app(test_config=None):
 
 
 
-    @app.route('/', methods=["GET", "POST", "DELETE", "PATCH", "PUT"])
+    @app.route('/', methods=["GET", "POST"])
     def index():
-        readItems = open("todos.txt", 'r')
-        message = readItems.read()
-        print(message.split('||'))
-        readItems.close()
+        if request.method == 'POST':
+            firstname = request.form['firstname']
+            lastname = request.form['lastname']
+            todo = request.form['todo']
+            error = None
+            if firstname == None:
+                error = 'You must enter a first name'
+            elif not lastname:
+                error = 'You must enter a last name.'
+            elif todo == 'Enter task:' or not todo:
+                error = 'You must enter a task for your task manager.'
+            if error is None:
+                readItems = open("todos.txt", 'a')
+                readItems.write(firstname + " " + lastname + ": " + todo + '\n')
+                readItems.close()
+
+            flash(error)
 
         return render_template('base.html')
-        
-    @app.route('/update')
-    def hello():
+
+    @app.route('/list')
+    def list():
+        if request.method == 'GET':
+            readItems = open('todos.txt', 'r')
+            tasks = readItems.readline()
+            for line in tasks:
+                print(line)
+            readItems.close()
+
+            while True:
+                return render_template('list.html')
 
         for key, value in request.args.items():
             print(f"{key}: {value}")
 
-        name = request.args.get('name', 'World')
-        return f"Hello {name}!"
+        # name = request.args.get('name', 'World')
+        # return f"Hello {name}!"
+
 
 
     return app
