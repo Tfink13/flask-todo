@@ -1,8 +1,13 @@
 from flask import Flask, request, render_template, request, flash
 
 
-
 def create_app(test_config=None):
+
+    from . import db
+    db.init_app(app)
+
+
+
     app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_mapping(
