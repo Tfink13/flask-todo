@@ -10,7 +10,8 @@ body {
   border-top: 0px;
   border-radius: 15px;
   height: 500px;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 53px;
   max-width: 75%;
 }
 
@@ -45,6 +46,6 @@ form {
   text-align: center;
 }
 
-.flash {
-
+ul.flashes {
+  margin: -34.5px;
 }

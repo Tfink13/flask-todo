@@ -2,31 +2,31 @@ from flask import Flask, request, render_template, request, flash
 
 
 def create_app(test_config=None):
-
-    from . import db
-    db.init_app(app)
-
-
-
     app = Flask(__name__, instance_relative_config=True)
 
+    # ask zach about this
     app.config.from_mapping(
         SECRET_KEY='dev',
+        # ask zach
+        DB_NAME='flask_todo',
+        DB_USER='csetuser',
     )
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
     else:
         app.config.from_mapping(test_config)
+ # each time we are running the command
 
-
-
+    from . import db
+    db.init_app(app)
 
     @app.route('/', methods=["GET", "POST"])
     def index():
         if request.method == 'POST':
+            # this is where i want to send data to database not txt file
 
-            # this is where i want to connect to the database
+
             firstname = request.form['firstname']
             lastname = request.form['lastname']
             todo = request.form['todo']
@@ -82,7 +82,7 @@ def create_app(test_config=None):
     @app.route('/create')
     def create():
         pass
-        # this is where i want to do something to
+        # this is where i want to mark my list to
         # do somehting to my list
 
 
