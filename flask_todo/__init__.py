@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, request, flash
 
-
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
@@ -24,27 +23,39 @@ def create_app(test_config=None):
     @app.route('/', methods=["GET", "POST"])
     def index():
         if request.method == 'POST':
-            # this is where i want to send data to database not txt file
 
 
-            firstname = request.form['firstname']
-            lastname = request.form['lastname']
-            todo = request.form['todo']
-            error = None
-            if not firstname:
-                error = 'You must enter a first name'
-            elif not lastname:
-                error = 'You must enter a last name.'
-            elif todo == 'Enter task:' or not todo:
-                error = 'You must enter a task for your task manager.'
-            else:
-                readItems = open("todos.txt", 'a')
-                readItems.write(firstname + " " + lastname + ": " + todo + '\n')
-                readItems.close()
+            new_task = request.form("text")
 
-            flash(error)
+            if new_task:
+                # this is where i want to send data to database not txt file
+                tasktime = datetime.datetime.now()
+                # first i want to save the database
+                conn = db.get_db()
+                cur = conn.cursor()
+                # Insert data into the database
+                conn.execute("INSERT INTO new_tasks (task = %s, created_at, completed)", (new_task, tasktime, False))
+
+                #  this is putting the ing=fo into a txt file
+                #  I know this is not good just was my first attempt so i want to keep it
+                firstname = request.form['firstname']
+                lastname = request.form['lastname']
+                todo = request.form['todo']
+                error = None
+                if not firstname:
+                    error = 'You must enter a first name'
+                elif not lastname:
+                    error = 'You must enter a last name.'
+                elif todo == 'Enter task:' or not todo:
+                    error = 'You must enter a task for your task manager.'
+                else:
+                    readItems = open("todos.txt", 'a')
+                    readItems.write(firstname + " " + lastname + ": " + todo + '\n')
+                    readItems.close()
 
         return render_template('base.html')
+
+
 
 
         # def index():
