@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS items;
 
-CREATE TABLE items (
+CREATE TABLE new_tasks (
   id bigserial PRIMARY KEY,
   text text NOT NULL,
   created_at timestamp NOT NULL,
-  compleated boolean NOT NULL
+  completed boolean NOT NULL
 );
